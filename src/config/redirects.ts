@@ -1,7 +1,11 @@
 /**
  * Redirect rules (18-WEBSITE-REDIRECTS-SITEMAP-SRS FR-WEB-021), applied at
- * build time by next.config.ts. The spec puts a redirects manager in the
+ * build time by `next.config.mjs`. The spec puts a redirects manager in the
  * admin dashboard; until that exists, add rules here.
+ *
+ * NOTE: `next.config.mjs` is plain JS and cannot import this TypeScript file
+ * (that would force the SWC/TS transpiler, which some hosts lack), so it
+ * duplicates these `legalMoves`. Keep the two lists in sync.
  *
  * `source` and `destination` are full paths including the locale prefix,
  * e.g. { source: "/en/old-pricing", destination: "/en/pricing", permanent: true }.

@@ -12,6 +12,28 @@ The build was uploaded as if it were static files. A Next.js *server* build has 
 **403 Forbidden**. The fix is not to serve files — it is to **run the app as a
 Node.js process**, which is what this setup does.
 
+## Why the Hostinger build failed (and how it's fixed)
+
+Hostinger's build container runs an older Linux glibc, so Next 16's **native SWC
+binary** (which needs `GLIBC_2.29`) can't load. Two things followed from that:
+
+1. Next 16 builds with **Turbopack** by default, and **Turbopack only works with
+   the native binary** — it cannot use the WASM fallback. So the build died with
+   *"Turbopack requires native bindings"* / the SWC/`next.config` errors you saw.
+2. A **`next.config.ts`** needs the SWC/TypeScript transpiler to load, which was
+   also unavailable — hence *"Failed to load next.config.ts"*.
+
+Both are fixed in the repo, with **no version downgrades** (the versions are fine
+— the build works locally):
+
+- **`npm run build` now runs `next build --webpack`.** Webpack supports the WASM
+  SWC fallback, so it builds without the native binary.
+- **The config is now `next.config.mjs`** (plain JS, imports no `.ts`), so it
+  loads with no transpiler.
+
+This was verified by forcing the no-native-SWC path locally
+(`NEXT_TEST_WASM=1 next build --webpack`) — the full build completes.
+
 ## What runs the app
 
 `server.js` (project root) is the Passenger **startup file**. It boots Next in
