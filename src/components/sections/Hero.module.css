@@ -82,6 +82,21 @@
 .photo img {
   object-fit: cover;
   object-position: right bottom;
+  /* Subtle, continuous "alive" motion — same image, size and position; transform only. */
+  animation: hero-float 8s var(--ease-emphasized) 1s infinite;
+  will-change: transform;
+}
+
+/* Gentle floating used by the hero visual. Starts and ends at rest so it can
+   follow the entrance animation seamlessly and never shifts layout. */
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0) scale(1.012);
+  }
 }
 
 /* Soft wash behind the text column only; the text itself is unchanged. */
@@ -264,7 +279,11 @@
 }
 
 .visualInner {
-  animation: motion-settle 1000ms 240ms var(--ease-emphasized) both;
+  /* Entrance, then the same subtle float once it has settled (hand-off is seamless
+     because hero-float begins and ends at the settled resting transform). */
+  animation:
+    motion-settle 1000ms 240ms var(--ease-emphasized) both,
+    hero-float 8s 1240ms var(--ease-emphasized) infinite;
 }
 
 .visualInner > * {
@@ -450,6 +469,7 @@
   .visualInner,
   .fact,
   .photo,
+  .photo img,
   .photoInline {
     animation: none;
   }

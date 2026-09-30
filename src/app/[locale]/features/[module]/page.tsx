@@ -131,9 +131,9 @@ export default async function ModulePage({ params }: Props) {
       )}
 
       {comingSoon.length > 0 && (
-        <Section id="coming-soon" tone="alt" labelledBy="coming-soon-heading" density="dense">
+        <Section id="coming-soon" tone="alt" ariaLabel={labels.comingSoonBody} density="dense">
           <Container width="narrow">
-            <SectionIntro headingId="coming-soon-heading" heading={labels.comingSoonHeading} subheading={labels.comingSoonBody} />
+            <SectionIntro subheading={labels.comingSoonBody} />
             <ul role="list" className={styles.soonList}>
               {comingSoon.map((item) => (
                 <li key={item.key} className={styles.soonItem}>

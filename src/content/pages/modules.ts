@@ -11,14 +11,15 @@ import type { FeatureItem } from "../types";
 export function getProductModules(locale: Locale): FeatureItem[] {
   return getModules().map((module) => {
     const copy = module.copy[locale];
-    const status = module.status === "COMING_SOON" ? "COMING_SOON" : "AVAILABLE";
+    // Only available modules show a status badge; the coming-soon label was removed site-wide.
+    const available = module.status !== "COMING_SOON";
     return {
       id: module.key,
       icon: module.icon,
       title: copy.name,
       description: copy.short,
       href: moduleHref(locale, module.key),
-      badge: { label: statusLabels[locale][status], tone: status === "AVAILABLE" ? "success" : "warning" },
+      badge: available ? { label: statusLabels[locale].AVAILABLE, tone: "success" as const } : undefined,
     };
   });
 }

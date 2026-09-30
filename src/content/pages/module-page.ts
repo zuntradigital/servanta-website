@@ -15,7 +15,6 @@ export type ModulePageLabels = {
   whereItFitsHeading: string;
   whereItFitsSubheading: string;
   journeyLabel: string;
-  comingSoonHeading: string;
   comingSoonBody: string;
   relatedHeading: string;
   governanceHeading: string;
@@ -43,7 +42,6 @@ const labels: Record<Locale, ModulePageLabels> = {
     whereItFitsHeading: "Where it fits",
     whereItFitsSubheading: "Every module works from the same connected records.",
     journeyLabel: "Connected product journey",
-    comingSoonHeading: "Coming soon",
     comingSoonBody: "Approved for this module and planned for launch. Not available yet.",
     relatedHeading: "Related modules",
     governanceHeading: "Access and governance",
@@ -70,7 +68,6 @@ const labels: Record<Locale, ModulePageLabels> = {
     whereItFitsHeading: "موقعها في المنظومة",
     whereItFitsSubheading: "تعمل كل وحدة من السجلات المتصلة نفسها.",
     journeyLabel: "رحلة المنتج المتصلة",
-    comingSoonHeading: "قريبًا",
     comingSoonBody: "معتمدة لهذه الوحدة ومخطط إطلاقها، وليست متاحة بعد.",
     relatedHeading: "وحدات ذات صلة",
     governanceHeading: "الوصول والحوكمة",

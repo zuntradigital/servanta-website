@@ -21,7 +21,7 @@ import { CommandCenterVisual } from "@/components/visuals/CommandCenterVisual";
 import { brand, showContentPlaceholders } from "@/config/brand";
 import { heroBackground } from "@/config/hero";
 import { href, moduleHref } from "@/config/routes";
-import { capabilityMap, groupLabels, statusLabels, type Capability } from "@/content/catalog";
+import { capabilityMap, groupLabels, type Capability } from "@/content/catalog";
 import { getHomeContent } from "@/content/home";
 import { getModulePageLabels } from "@/content/pages/module-page";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -60,7 +60,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       key: item.key,
       name: item.name[locale],
       href: capabilityHref(locale, item),
-      badge: item.status === "COMING_SOON" ? statusLabels[locale].COMING_SOON : undefined,
     })),
   }));
 

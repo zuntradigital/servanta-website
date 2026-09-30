@@ -21,27 +21,47 @@ export function LogoCloud({ label, logos, placeholderCount = 0, placeholderNote 
   const showPlaceholders = logos.length === 0 && placeholderCount > 0;
   if (!logos.length && !showPlaceholders) return null;
 
+  const logoItem = (logo: LogoItem) =>
+    logo.href ? (
+      <a href={logo.href} rel="noopener noreferrer" target="_blank">
+        <img src={logo.src} alt={logo.name} loading="lazy" />
+      </a>
+    ) : (
+      <img src={logo.src} alt={logo.name} loading="lazy" />
+    );
+
   return (
     <Section tone="band" density="dense" ariaLabel={label} className={styles.band}>
       <Container>
         <Eyebrow className={styles.label}>{label}</Eyebrow>
-        <ul role="list" className={styles.list}>
-          {showPlaceholders
-            ? Array.from({ length: placeholderCount }, (_, index) => (
-                <li key={index} className={styles.slot} aria-hidden="true" />
-              ))
-            : logos.map((logo) => (
-                <li key={logo.name} className={styles.logo}>
-                  {logo.href ? (
-                    <a href={logo.href} rel="noopener noreferrer" target="_blank">
-                      <img src={logo.src} alt={logo.name} loading="lazy" />
-                    </a>
-                  ) : (
-                    <img src={logo.src} alt={logo.name} loading="lazy" />
-                  )}
-                </li>
-              ))}
-        </ul>
+        {showPlaceholders ? (
+          <ul role="list" className={styles.list}>
+            {Array.from({ length: placeholderCount }, (_, index) => (
+              <li key={index} className={styles.slot} aria-hidden="true" />
+            ))}
+          </ul>
+        ) : (
+          // Seamless infinite horizontal loop: the same logos, in order, rendered
+          // twice so the track can scroll by exactly one set with no visible jump.
+          <div className={styles.marquee}>
+            <div className={styles.marqueeTrack}>
+              <ul role="list" className={styles.set}>
+                {logos.map((logo) => (
+                  <li key={logo.name} className={styles.logo}>
+                    {logoItem(logo)}
+                  </li>
+                ))}
+              </ul>
+              <ul aria-hidden="true" className={styles.set}>
+                {logos.map((logo) => (
+                  <li key={`clone-${logo.name}`} className={styles.logo}>
+                    {logoItem(logo)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
         {showPlaceholders && placeholderNote && <p className={styles.note}>{placeholderNote}</p>}
       </Container>
     </Section>

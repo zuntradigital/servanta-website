@@ -51,7 +51,7 @@ const content: Record<Locale, BlogPageContent> = {
     },
     sectionLabel: "المقالات",
     latest: "أحدث المقالات",
-    none: "لم تُنشر أي مقالات بعد. عد قريبًا.",
+    none: "لم تُنشر أي مقالات بعد.",
     listing: {
       filterLabel: "التصفية حسب الفئة",
       all: "الكل",

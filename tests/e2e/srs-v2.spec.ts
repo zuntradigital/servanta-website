@@ -23,7 +23,9 @@ test("only AVAILABLE and COMING_SOON capabilities are published", async ({ page 
   }
   await page.goto("/en");
   const map = page.locator("#capabilities-heading").locator("xpath=ancestor::section");
-  await expect(map.getByText("Electronic signature").locator("xpath=..")).toContainText("Coming soon");
+  // Coming-soon capabilities are still listed in the map (the "Coming soon" label was removed site-wide).
+  await expect(map.getByText("Electronic signature")).toBeVisible();
+  await expect(map).not.toContainText("Coming soon");
 });
 
 test("no unsupported statistics or grade claims on the site", async ({ page }) => {

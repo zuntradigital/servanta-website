@@ -7,10 +7,11 @@ import { Badge } from "./Badge";
  * render; anything else returns nothing because it must never reach a page.
  */
 export function StatusBadge({ status, locale, className }: { status: CapabilityStatus; locale: Locale; className?: string }) {
-  if (status !== "AVAILABLE" && status !== "COMING_SOON") return null;
+  // Only AVAILABLE shows a status badge; the coming-soon label is not displayed.
+  if (status !== "AVAILABLE") return null;
   return (
-    <Badge tone={status === "AVAILABLE" ? "success" : "warning"} className={className}>
-      {statusLabels[locale][status]}
+    <Badge tone="success" className={className}>
+      {statusLabels[locale].AVAILABLE}
     </Badge>
   );
 }

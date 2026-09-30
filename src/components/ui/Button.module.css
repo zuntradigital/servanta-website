@@ -23,12 +23,13 @@
 }
 
 .button:hover {
-  transform: translateY(-2px);
+  /* Subtle lift + gentle scale for a premium, alive hover — position/size unchanged at rest. */
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* Press feedback: settles back and compresses slightly, fast in both directions. */
 .button:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.97);
   transition-duration: 90ms;
   transition-timing-function: var(--ease-press);
 }

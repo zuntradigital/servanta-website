@@ -72,3 +72,52 @@
 .band {
   border-block: 1px solid var(--color-border);
 }
+
+/*
+ * Infinite logo marquee: the logo set is rendered twice inside .marqueeTrack,
+ * which scrolls left by exactly one set (translateX(-50%)) and repeats — so the
+ * loop is seamless with no visible jump. Logos keep their existing size, colour
+ * treatment and hover behaviour (.logo). Edges fade out; motion pauses on hover
+ * and is switched off entirely under prefers-reduced-motion.
+ */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee 32s linear infinite;
+}
+
+.marquee:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+.set {
+  display: flex;
+  align-items: center;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.set .logo {
+  flex: none;
+  margin-inline: var(--space-6);
+}
+
+@keyframes logo-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}

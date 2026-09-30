@@ -4,7 +4,7 @@ import { Eyebrow } from "./Eyebrow";
 import styles from "./SectionIntro.module.css";
 
 type SectionIntroProps = {
-  heading: ReactNode;
+  heading?: ReactNode;
   headingId?: string;
   subheading?: ReactNode;
   eyebrow?: ReactNode;
@@ -21,9 +21,11 @@ export function SectionIntro({ heading, headingId, subheading, eyebrow, align = 
   return (
     <div className={cx(styles.intro, align === "center" && styles.center, bare && styles.bare, className)} data-reveal>
       {eyebrow && <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow>}
-      <Heading id={headingId} className={styles.heading}>
-        {heading}
-      </Heading>
+      {heading != null && (
+        <Heading id={headingId} className={styles.heading}>
+          {heading}
+        </Heading>
+      )}
       {subheading && <p className={styles.sub}>{subheading}</p>}
       {actions && <div className={styles.actions}>{actions}</div>}
     </div>

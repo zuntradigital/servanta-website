@@ -43,9 +43,9 @@ export function isPublished(status: CapabilityStatus): boolean {
   return publicStatuses.includes(status);
 }
 
-export const statusLabels: Record<Locale, Record<"AVAILABLE" | "COMING_SOON", string>> = {
-  en: { AVAILABLE: "Available", COMING_SOON: "Coming soon" },
-  ar: { AVAILABLE: "متاح", COMING_SOON: "قريبًا" },
+export const statusLabels: Record<Locale, Record<"AVAILABLE", string>> = {
+  en: { AVAILABLE: "Available" },
+  ar: { AVAILABLE: "متاح" },
 };
 
 type Bi<T> = Record<Locale, T>;

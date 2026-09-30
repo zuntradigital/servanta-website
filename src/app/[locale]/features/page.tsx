@@ -76,9 +76,9 @@ export default async function FeaturesPage({ params }: PageProps<"/[locale]/feat
       </Section>
 
       {comingSoon.length > 0 && (
-        <Section tone="alt" density="dense" labelledBy="coming-soon-heading">
+        <Section tone="alt" density="dense" ariaLabel={labels.comingSoonBody}>
           <Container width="narrow">
-            <SectionIntro headingId="coming-soon-heading" heading={labels.comingSoonHeading} subheading={labels.comingSoonBody} />
+            <SectionIntro subheading={labels.comingSoonBody} />
             <ul role="list" className={styles.soonList}>
               {comingSoon.map((item) => (
                 <li key={item.key} className={styles.soonItem}>
