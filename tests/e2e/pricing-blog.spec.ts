@@ -22,15 +22,15 @@ test("pricing shows the three SRS plans with annual price and derived monthly eq
   await expect(page.getByText("Most popular")).toHaveCount(0);
 });
 
-test("pricing marks unreleased Business features as at launch", async ({ page }) => {
+test("pricing shows plans without any coming-soon / at-launch status labels", async ({ page }) => {
   await page.goto("/en/pricing");
-  const business = page.locator('[data-plan="business"]');
-  await expect(business.getByText("At launch").first()).toBeVisible();
-  await expect(page.locator('[data-plan="starter"]').getByText("At launch")).toHaveCount(0);
+  // The "At launch" status labels were removed site-wide; plans and comparison stay intact.
+  await expect(page.locator("main")).not.toContainText("At launch");
+  await expect(page.locator('[data-plan="business"]')).toBeVisible();
   // The comparison is a table on desktop and stacked panels on mobile.
   test.skip(test.info().project.name === "mobile", "table assertions are desktop-only");
   const table = page.getByRole("table", { name: "Features by plan" });
-  await expect(table.getByRole("row", { name: /Electronic signature/ })).toContainText("At launch");
+  await expect(table.getByRole("row", { name: /Electronic signature/ })).toBeVisible();
   await expect(page.getByRole("table", { name: "Limits by plan" }).getByRole("row", { name: /Users/ })).toContainText("2");
 });
 

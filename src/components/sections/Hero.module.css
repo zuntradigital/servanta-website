@@ -23,6 +23,9 @@
     linear-gradient(118deg, transparent 0 74%, rgba(30, 111, 217, 0.05) 74% 86%, transparent 86%),
     radial-gradient(ellipse 70% 60% at 70% 45%, rgba(30, 111, 217, 0.1), transparent 70%);
   mask-image: linear-gradient(180deg, #000 60%, transparent);
+  /* Ambient decorative drift on inner-page heroes (very slow, transform only). */
+  animation: drift-soft 22s ease-in-out infinite;
+  will-change: transform;
 }
 
 [dir="rtl"] .backdrop {
@@ -82,20 +85,34 @@
 .photo img {
   object-fit: cover;
   object-position: right bottom;
-  /* Subtle, continuous "alive" motion — same image, size and position; transform only. */
-  animation: hero-float 8s var(--ease-emphasized) 1s infinite;
+  /* Continuous premium levitation — same image/size/position; transform only.
+     The image drifts up, eases to one side, returns and dips, then home — forever. */
+  animation: hero-float 9s ease-in-out 0.9s infinite;
   will-change: transform;
 }
 
-/* Gentle floating used by the hero visual. Starts and ends at rest so it can
-   follow the entrance animation seamlessly and never shifts layout. */
+/*
+ * Continuous floating/levitation for the hero image. It starts and ends at the
+ * exact resting position (0,0,scale 1) so it loops seamlessly and hands off from
+ * the entrance animation with no jump, and it never shifts surrounding layout
+ * (transform only). The slight scale keeps the masked, cover-fit image's edges
+ * covered while it moves within the feathered mask.
+ */
 @keyframes hero-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  22% {
+    transform: translate3d(-7px, -15px, 0) scale(1.02) rotate(-0.25deg);
   }
   50% {
-    transform: translate3d(0, -8px, 0) scale(1.012);
+    transform: translate3d(5px, -22px, 0) scale(1.025) rotate(0.2deg);
+  }
+  78% {
+    transform: translate3d(9px, -11px, 0) scale(1.02) rotate(0.3deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
   }
 }
 
@@ -127,9 +144,13 @@
   mask-composite: intersect;
 }
 
-/* The band settles in with the rest of the hero; the crop transform stays on the img. */
+/* The band settles in, then floats continuously (the crop transform stays on the
+   img, so animating the band never disturbs it). Same motion as the desktop photo,
+   so tablet, mobile and Arabic pages get the levitation too. */
 .photoInline {
-  animation: motion-settle 1000ms 260ms var(--ease-emphasized) both;
+  animation:
+    motion-settle 1000ms 260ms var(--ease-emphasized) both,
+    hero-float 9s 1260ms ease-in-out infinite;
 }
 
 /*
@@ -347,6 +368,23 @@
   transform: translateY(-3px);
   color: var(--color-accent);
   box-shadow: inset 0 0 0 1px var(--color-border-strong), var(--shadow-card);
+}
+
+/* Ambient float on the fact glyphs (the .factIcon box keeps its hover lift). */
+.factIcon svg {
+  animation: float-soft 6.5s ease-in-out infinite;
+}
+
+.fact:nth-child(2) .factIcon svg {
+  animation-delay: -1.6s;
+}
+
+.fact:nth-child(3) .factIcon svg {
+  animation-delay: -3.2s;
+}
+
+.fact:nth-child(4) .factIcon svg {
+  animation-delay: -4.8s;
 }
 
 .factTitle {

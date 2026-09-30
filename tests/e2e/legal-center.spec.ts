@@ -12,14 +12,14 @@ test("old legal URLs redirect permanently into the Legal Center", async ({ page,
   await expect(page).toHaveURL(/\/(en|ar)\/legal\/privacy$/);
 });
 
-test("Legal Center lists public documents as pending review, with no invented version or date", async ({ page }) => {
+test("Legal Center lists public documents, with no invented version or date", async ({ page }) => {
   await page.goto("/en/legal");
   await expect(page.locator("h1")).toHaveText("Legal Center");
   const main = page.locator("main");
   for (const title of ["Terms of Service", "Subscription Terms", "Privacy Policy", "Cookie Policy", "Acceptable Use Policy", "Refund & Cancellation Policy", "Third-Party Services Disclosure", "Electronic Transactions & Electronic Signature Notice", "Contract Library Disclaimer", "Platform Intermediary Disclosure"]) {
     await expect(main.getByRole("link", { name: title, exact: true })).toBeVisible();
   }
-  await expect(main.getByText("Pending legal review")).toHaveCount(10);
+  await expect(main).not.toContainText("Pending");
   await expect(main).not.toContainText("Version");
   await expect(main).toContainText("Documents may have different effective dates.");
   await expect(main).toContainText("Contracts and documents that platform users create for their own customers and counterparties are separate");
@@ -27,10 +27,11 @@ test("Legal Center lists public documents as pending review, with no invented ve
   for (const hidden of ["Data Processing Addendum", "Data Retention", "Responsible Disclosure"]) await expect(main).not.toContainText(hidden);
 });
 
-test("each legal document shows the pending notice and links back", async ({ page }) => {
+test("each legal document shows its prepared-text notice and links back", async ({ page }) => {
   await page.goto("/ar/legal/intermediary-disclosure");
   await expect(page.locator("h1")).toHaveText("الإفصاح عن دور المنصة كوسيط تقني");
-  await expect(page.getByText("النص النهائي قيد المراجعة القانونية.")).toBeVisible();
+  await expect(page.getByRole("main")).toContainText("سيُنشر النص النهائي على هذه الصفحة");
+  await expect(page.getByRole("main")).not.toContainText("قيد المراجعة");
   await page.getByRole("main").getByRole("link", { name: "جميع الوثائق القانونية" }).click();
   await expect(page).toHaveURL(/\/ar\/legal$/);
 });

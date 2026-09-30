@@ -49,7 +49,6 @@ const content: Record<Locale, PricingPageContent> = {
     },
     notes: [
       "Prices are in Saudi riyals (SAR) and billed annually. The monthly amount is the annual price divided by 12, shown for comparison.",
-      "At launch: included in the plan once the feature is released on the platform.",
     ],
     faqHeading: "Pricing questions",
     labels: {
@@ -58,7 +57,6 @@ const content: Record<Locale, PricingPageContent> = {
       everythingIn: "Everything in {plan}, plus:",
       keyLimits: "Key limits",
       perMonth: "/ month",
-      atLaunch: "At launch",
       popular: "Most popular",
       recommended: "Recommended",
       recommendedHidden: "recommended plan",
@@ -97,7 +95,6 @@ const content: Record<Locale, PricingPageContent> = {
     },
     notes: [
       "الأسعار بالريال السعودي وتُدفع سنويًا. المبلغ الشهري هو السعر السنوي مقسومًا على 12، ويُعرض للمقارنة فقط.",
-      "عند الإطلاق: مشمولة في الباقة عند إطلاق الميزة في المنصة.",
     ],
     faqHeading: "أسئلة عن الأسعار",
     labels: {
@@ -106,7 +103,6 @@ const content: Record<Locale, PricingPageContent> = {
       everythingIn: "كل مميزات {plan} بالإضافة إلى:",
       keyLimits: "الحدود الرئيسية",
       perMonth: "/ شهر",
-      atLaunch: "عند الإطلاق",
       popular: "الأكثر استخدامًا",
       recommended: "الموصى بها",
       recommendedHidden: "الباقة الموصى بها",

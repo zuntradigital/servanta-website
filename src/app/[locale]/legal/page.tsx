@@ -70,7 +70,7 @@ export default async function LegalCenterPage({ params }: PageProps<"/[locale]/l
                 href: legalHref(locale, doc.slug),
                 badge: published
                   ? { label: `${labels.version} ${doc.version} · ${formatDate(doc.effectiveFrom!, locale)}`, tone: "success" as const }
-                  : { label: labels.pendingBadge, tone: "warning" as const },
+                  : undefined,
               };
             });
           if (!items.length) return null;

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Alert } from "@/components/ui/Alert";
 import { Container } from "@/components/ui/Container";
 import { href } from "@/config/routes";
 import { formatDate } from "@/content/blog";
@@ -22,7 +21,7 @@ export function LegalPage({ doc, locale = "en" }: { doc: LegalDoc; locale?: Loca
         <h1 id="page-title" className={styles.title}>
           {doc.title}
         </h1>
-        {published ? (
+        {published && (
           <p className={styles.updated}>
             {labels.version} <span className="ltr-number">{doc.version}</span> · {labels.effective}{" "}
             <time dateTime={doc.effectiveFrom!}>{formatDate(doc.effectiveFrom!, locale)}</time>
@@ -33,10 +32,6 @@ export function LegalPage({ doc, locale = "en" }: { doc: LegalDoc; locale?: Loca
               </>
             )}
           </p>
-        ) : (
-          <Alert tone="info" className={styles.notice}>
-            {labels.pendingReview}
-          </Alert>
         )}
         <RichText blocks={doc.body}>
           {!published && (

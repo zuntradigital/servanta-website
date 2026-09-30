@@ -66,6 +66,23 @@
   transform: translateY(-2px) scale(1.05);
 }
 
+/* Ambient float on the icon glyph itself (the .icon box keeps its hover lift).
+   Staggered durations/delays so the grid's icons drift out of sync. */
+.icon svg {
+  animation: float-soft 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.item:nth-child(3n + 2) .icon svg {
+  animation-duration: 7.4s;
+  animation-delay: -1.6s;
+}
+
+.item:nth-child(3n + 3) .icon svg {
+  animation-duration: 6.8s;
+  animation-delay: -3.2s;
+}
+
 .onSurface .icon {
   background: var(--color-surface);
   box-shadow: inset 0 0 0 1px var(--color-border);

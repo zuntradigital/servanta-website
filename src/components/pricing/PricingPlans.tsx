@@ -15,7 +15,6 @@ export type PricingLabels = {
   everythingIn: string;
   keyLimits: string;
   perMonth: string;
-  atLaunch: string;
   popular: string;
   recommended: string;
   recommendedHidden: string;
@@ -93,10 +92,7 @@ export function PricingPlans({ plans, locale, labels, ctaHref, currentPlanCode }
               {plan.version.highlights.map((highlight) => (
                 <li key={highlight.label}>
                   <Check className={styles.check} size={16} strokeWidth={2.25} aria-hidden="true" />
-                  <span>
-                    {highlight.label}
-                    {highlight.availability === "at_launch" && <span className={styles.launchTag}>{labels.atLaunch}</span>}
-                  </span>
+                  <span>{highlight.label}</span>
                 </li>
               ))}
             </ul>

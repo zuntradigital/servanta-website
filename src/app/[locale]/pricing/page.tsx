@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/pricing"
 }
 
 /** Comparison rows built from the plans' own entitlements and limits (§6, §15), never authored here. */
-function comparisonRows(plans: PublicPlan[], atLaunch: string, perMonth: string) {
+function comparisonRows(plans: PublicPlan[], perMonth: string) {
   const featureKeys = [...new Map(plans.flatMap((p) => p.version.feature_entitlements).map((e) => [e.key, e.label])).entries()];
   const limitKeys = [...new Map(plans.flatMap((p) => p.version.limits).map((l) => [l.key, l.label])).entries()];
 
@@ -43,8 +43,7 @@ function comparisonRows(plans: PublicPlan[], atLaunch: string, perMonth: string)
     values: plans.map((plan): ComparisonValue => {
       const e = plan.version.feature_entitlements.find((item) => item.key === key);
       if (!e) return false;
-      const value = e.level_label ?? e.included;
-      return e.availability === "at_launch" && value !== false ? { value, note: atLaunch } : value;
+      return e.level_label ?? e.included;
     }),
   }));
   const limits = limitKeys.map(([key, label]) => ({
@@ -91,7 +90,7 @@ async function PlansSection({ locale }: { locale: Locale }) {
   }
 
   const highlightIndex = plans.findIndex((p) => p.is_recommended || p.is_popular);
-  const { features, limits } = comparisonRows(plans, copy.labels.atLaunch, copy.labels.perMonth);
+  const { features, limits } = comparisonRows(plans, copy.labels.perMonth);
   const tableProps = {
     columns: plans.map((p) => p.name),
     highlightColumn: highlightIndex >= 0 ? highlightIndex : undefined,

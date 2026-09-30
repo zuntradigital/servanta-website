@@ -100,9 +100,9 @@
   --tracking-eyebrow: 0.14em;
   --tracking-heading: -0.02em;
 
-  /* Section rhythm */
-  --section-pad: 96px;
-  --section-pad-dense: 72px;
+  /* Section rhythm — trimmed to reduce excessive gaps between sections (internal layouts unchanged). */
+  --section-pad: 78px;
+  --section-pad-dense: 58px;
   --section-pad-slim: var(--space-8);
 
   /* Motion */
@@ -125,8 +125,8 @@
     --type-hero-lh: 50px;
     --type-section: 30px;
     --type-section-lh: 38px;
-    --section-pad: 80px;
-    --section-pad-dense: 64px;
+    --section-pad: 66px;
+    --section-pad-dense: 52px;
   }
 }
 
@@ -139,8 +139,8 @@
     --type-section: 26px;
     --type-section-lh: 34px;
     --type-stat: 28px;
-    --section-pad: 64px;
-    --section-pad-dense: 48px;
+    --section-pad: 54px;
+    --section-pad-dense: 42px;
     --section-pad-slim: var(--space-8);
   }
 }
@@ -326,6 +326,45 @@ textarea {
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/*
+ * Ambient, automatic motion (no interaction needed): a gentle float for small
+ * accents (icons, illustrations) and a slow breathe/drift for decorative
+ * backgrounds. Transform-only, so it is GPU-friendly and never shifts layout.
+ * Elements pick their own duration/delay so nothing moves in unison. All of it
+ * is switched off by the prefers-reduced-motion guard below.
+ */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes breathe-soft {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes drift-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-2%, 1.4%, 0);
   }
 }
 

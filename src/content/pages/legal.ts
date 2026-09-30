@@ -332,8 +332,6 @@ export const legalLabels: Record<
     lastUpdated: string;
     version: string;
     effective: string;
-    pendingReview: string;
-    pendingBadge: string;
     contactPrefix: string;
     contactLink: string;
     allDocuments: string;
@@ -343,8 +341,6 @@ export const legalLabels: Record<
     lastUpdated: "Last updated",
     version: "Version",
     effective: "Effective",
-    pendingReview: "Final text pending legal review.",
-    pendingBadge: "Pending legal review",
     contactPrefix: "If you have a question in the meantime, please contact us using the",
     contactLink: "legal & privacy request form",
     allDocuments: "All legal documents",
@@ -353,8 +349,6 @@ export const legalLabels: Record<
     lastUpdated: "آخر تحديث",
     version: "الإصدار",
     effective: "تاريخ السريان",
-    pendingReview: "النص النهائي قيد المراجعة القانونية.",
-    pendingBadge: "قيد المراجعة القانونية",
     contactPrefix: "إذا كان لديك أي استفسار في هذه الأثناء، يُرجى التواصل معنا عبر",
     contactLink: "نموذج الطلبات القانونية وطلبات الخصوصية",
     allDocuments: "جميع الوثائق القانونية",
