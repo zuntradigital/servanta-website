@@ -1,0 +1,425 @@
+/* Card */
+.card {
+  height: 100%;
+}
+
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--duration-hover) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out),
+    transform var(--duration-hover) var(--ease-out);
+}
+
+.cardLink:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardLink:hover {
+    transform: none;
+  }
+}
+
+.cardLink:focus-visible {
+  border-radius: var(--radius-md);
+}
+
+.cover {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-bg-band), var(--color-accent-tint));
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-base) ease-out;
+}
+
+.coverPlaceholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--color-border);
+  background:
+    linear-gradient(118deg, transparent 0 62%, rgba(30, 111, 217, 0.08) 62% 70%, transparent 70%),
+    linear-gradient(118deg, transparent 0 76%, rgba(10, 52, 112, 0.06) 76% 80%, transparent 80%),
+    linear-gradient(135deg, var(--color-bg-band), var(--color-accent-tint));
+}
+
+[dir="rtl"] .coverPlaceholder {
+  background:
+    linear-gradient(242deg, transparent 0 62%, rgba(30, 111, 217, 0.08) 62% 70%, transparent 70%),
+    linear-gradient(242deg, transparent 0 76%, rgba(10, 52, 112, 0.06) 76% 80%, transparent 80%),
+    linear-gradient(225deg, var(--color-bg-band), var(--color-accent-tint));
+}
+
+/* A small "product card" floating on the panel. */
+.coverCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: min(56%, 220px);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+}
+
+.cardLink:hover .coverCard {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.coverIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-bright);
+  color: var(--color-on-dark);
+}
+
+.motifCalendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.motifCalendar span {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--color-bg-band);
+}
+
+.motifCalendar .on {
+  background: var(--color-accent-tint);
+  box-shadow: inset 0 0 0 1px var(--color-border-strong);
+}
+
+.motifCalendar .onStrong {
+  background: var(--color-accent-bright);
+}
+
+.motifRows,
+.motifChecklist,
+.motifDocument {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.motifRows span,
+.motifChecklist span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.motifRows i,
+.motifChecklist i,
+.motifDocument i {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-bg-band);
+}
+
+.motifRows b {
+  flex: none;
+  width: 22%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-border-strong);
+}
+
+.motifRows .total {
+  padding-block-start: 7px;
+  border-block-start: 1px solid var(--color-border);
+}
+
+.motifRows .total i {
+  width: 30%;
+  background: var(--color-border-strong);
+}
+
+.motifRows .total b {
+  width: 32%;
+  background: var(--color-accent-bright);
+}
+
+.motifChecklist span {
+  justify-content: flex-start;
+}
+
+.motifChecklist em {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1.5px var(--color-border-strong);
+}
+
+.motifChecklist .done em {
+  background: var(--color-accent-bright);
+  box-shadow: none;
+}
+
+.motifDocument .signature {
+  width: 44%;
+  height: 10px;
+  margin-block-start: 4px;
+  border-block-end: 1.5px solid var(--color-accent-bright);
+}
+
+.featured .coverCard {
+  width: min(52%, 280px);
+  padding: var(--space-5);
+}
+
+/* The one permitted hover motion: image scale 1.02 (spec §16). */
+.cardLink:hover .cover img {
+  transform: scale(1.02);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  flex: 1;
+  padding: var(--space-5);
+}
+
+.cardTitle {
+  margin-block-start: var(--space-1);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--color-ink);
+  transition: color var(--duration-hover) ease;
+}
+
+.cardLink:hover .cardTitle {
+  color: var(--color-accent);
+}
+
+.excerpt {
+  flex: 1;
+  font-size: var(--type-body);
+  line-height: 21px;
+  color: var(--color-text-secondary);
+}
+
+.meta {
+  margin-block-start: var(--space-2);
+  font-size: var(--type-meta);
+  color: var(--color-text-secondary);
+}
+
+/* Featured variant */
+.featured .cardLink {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+.featured .cover {
+  aspect-ratio: auto;
+  min-height: 320px;
+}
+
+.featured .coverPlaceholder {
+  border-bottom: 0;
+  border-inline-end: 1px solid var(--color-border);
+}
+
+.featured .cardBody {
+  justify-content: center;
+  padding: var(--space-10);
+  gap: var(--space-3);
+}
+
+.featured .cardTitle {
+  font-size: var(--type-section);
+  line-height: var(--type-section-lh);
+}
+
+.featured .excerpt {
+  flex: none;
+  font-size: var(--type-body-lg);
+  line-height: 24px;
+}
+
+/* Listing */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block-end: var(--space-8);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
+}
+
+.chip:hover {
+  border-color: var(--color-navy);
+}
+
+.chip:focus-visible {
+  border-radius: var(--radius-pill);
+}
+
+.chipActive,
+.chipActive:hover {
+  border-color: var(--color-navy);
+  background: var(--color-navy);
+  color: var(--color-on-dark);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-16) var(--space-6);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.emptyAction {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-block-start: var(--space-10);
+}
+
+.pageButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pageButton:hover:not(.pageDisabled) {
+  border-color: var(--color-navy);
+}
+
+.pageDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageActive,
+.pageActive:hover {
+  border-color: var(--color-navy);
+  background: var(--color-navy);
+  color: var(--color-on-dark);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .featured .cardLink {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featured .cover {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+
+  .featured .coverPlaceholder {
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .featured .cardBody {
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filters {
+    margin-block-end: var(--space-6);
+  }
+
+  /* 44px touch targets on mobile (spec §15). */
+  .chip,
+  .pageButton {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardLink:hover .cover img,
+  .cardLink:hover .coverCard {
+    transform: none;
+  }
+}

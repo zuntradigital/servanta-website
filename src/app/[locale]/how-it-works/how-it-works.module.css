@@ -1,0 +1,111 @@
+/* End-to-end example: four phase cards, eleven numbered steps. */
+.phases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.phase {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 360ms var(--ease-emphasized),
+    box-shadow 360ms var(--ease-emphasized),
+    border-color var(--duration-hover) var(--ease-out);
+}
+
+.phase:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.phaseTitle {
+  margin-block-end: var(--space-5);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.number {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-tint);
+  color: var(--color-accent);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    color var(--duration-hover) var(--ease-out);
+}
+
+.step:hover .number {
+  background: var(--color-navy);
+  color: var(--color-on-dark);
+}
+
+.stepTitle {
+  font-size: var(--type-feature-title);
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.stepText {
+  margin-block-start: 2px;
+  font-size: var(--type-body);
+  line-height: 22px;
+  color: var(--color-text-secondary);
+}
+
+.recordId {
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.note {
+  margin-block-start: var(--space-6);
+  text-align: center;
+  font-size: var(--type-meta);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .phases {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .phase {
+    padding: var(--space-5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phase:hover {
+    transform: none;
+  }
+}

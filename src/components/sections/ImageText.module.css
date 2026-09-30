@@ -1,0 +1,94 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 9fr) minmax(0, 10fr);
+  align-items: center;
+  gap: 72px;
+}
+
+.end {
+  grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
+}
+
+/* DOM order is always visual → text; `end` moves the visual to the logical end. */
+.end .visual {
+  order: 2;
+}
+
+.heading {
+  font-size: var(--type-section);
+  line-height: var(--type-section-lh);
+  font-weight: 600;
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+.eyebrow {
+  margin-block-end: var(--space-3);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 500px;
+  margin-block: var(--space-5) var(--space-6);
+  font-size: var(--type-body-lg);
+  line-height: 26px;
+  color: var(--color-text-secondary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block: 0 var(--space-6);
+  font-size: var(--type-body);
+  line-height: 21px;
+  color: var(--color-text);
+}
+
+.list li {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.check {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-block-start: 0;
+  padding: 3px;
+  border-radius: var(--radius-xs);
+  background: var(--color-accent-tint);
+  color: var(--color-accent-bright);
+}
+
+/* Visual always renders first when stacked (spec §5.4). */
+@media (max-width: 1023px) {
+  .grid,
+  .end {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-10);
+  }
+
+  .end .visual {
+    order: 0;
+  }
+
+  .body {
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid,
+  .end {
+    gap: var(--space-6);
+  }
+
+  .body {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}

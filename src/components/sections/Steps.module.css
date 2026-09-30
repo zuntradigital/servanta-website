@@ -1,0 +1,167 @@
+.list {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--space-6);
+  counter-reset: step;
+}
+
+.step {
+  position: relative;
+  text-align: center;
+}
+
+/* Connector line between numbered nodes (desktop). */
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  inset-inline-start: calc(50% + 26px);
+  width: calc(100% - 52px + var(--space-6));
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-border-strong), var(--color-border));
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-navy);
+  color: var(--color-on-dark);
+  font-size: var(--type-body);
+  font-weight: 600;
+  box-shadow: 0 0 0 6px var(--color-accent-tint);
+}
+
+.title {
+  margin-block-end: var(--space-2);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.description {
+  max-width: 260px;
+  margin-inline: auto;
+  font-size: var(--type-body);
+  line-height: 22px;
+  color: var(--color-text-secondary);
+}
+
+.visual {
+  margin-block-start: var(--space-4);
+}
+
+/* Detailed variant: step text on the start side, optional visual on the end. */
+.detailed {
+  grid-auto-flow: row;
+  gap: 0;
+}
+
+.detailed .step {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  column-gap: var(--space-6);
+  text-align: start;
+  padding-block-end: var(--space-12);
+}
+
+.detailed .step:last-child {
+  padding-block-end: 0;
+}
+
+.detailed .step:not(:last-child)::after {
+  top: 44px;
+  bottom: 8px;
+  inset-inline-start: 18px;
+  width: 1px;
+  height: auto;
+}
+
+.detailed .number {
+  margin: 0;
+}
+
+.detailed .content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.detailed .content:not(:has(.visual)) {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 640px;
+}
+
+.detailed .title {
+  margin-block: 6px var(--space-2);
+  font-size: var(--type-title);
+  line-height: 26px;
+}
+
+.detailed .description {
+  max-width: 480px;
+  margin: 0;
+  font-size: var(--type-body-lg);
+  line-height: 24px;
+}
+
+.detailed .visual {
+  margin: 0;
+}
+
+/* Tablet/mobile: vertical stack with a start-aligned connector (spec §5.6). */
+@media (max-width: 1023px) {
+  .list {
+    grid-auto-flow: row;
+    gap: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    column-gap: var(--space-4);
+    padding-block-end: var(--space-8);
+    text-align: start;
+  }
+
+  .step:last-child {
+    padding-block-end: 0;
+  }
+
+  .step:not(:last-child)::after {
+    top: 44px;
+    bottom: 8px;
+    inset-inline-start: 18px;
+    width: 1px;
+    height: auto;
+  }
+
+  .number {
+    margin: 0;
+  }
+
+  .title {
+    margin-block-start: 6px;
+  }
+
+  .description {
+    margin: 0;
+    max-width: 560px;
+  }
+
+  .detailed .content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+.link {
+  margin-block-start: var(--space-3);
+}

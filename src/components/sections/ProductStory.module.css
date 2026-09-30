@@ -1,0 +1,41 @@
+.c360 {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.hub {
+  display: inline-block;
+  margin-block-end: var(--space-5);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-navy);
+  color: var(--color-on-dark);
+  font-weight: 600;
+}
+
+.spokes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.spoke {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.note {
+  margin-block-start: var(--space-5);
+  font-size: var(--type-meta);
+  color: var(--color-text-secondary);
+}

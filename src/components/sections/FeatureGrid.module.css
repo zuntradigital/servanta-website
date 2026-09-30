@@ -1,0 +1,187 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.cols2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cols4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Quiet card: hairline border, soft shadow, gentle lift on hover. */
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 360ms var(--ease-emphasized),
+    box-shadow 360ms var(--ease-emphasized),
+    border-color var(--duration-hover) var(--ease-out),
+    background-color var(--duration-hover) var(--ease-out);
+}
+
+/* On white sections the cards take the ice tint so they still separate. */
+.onSurface .item {
+  background: var(--color-bg);
+  box-shadow: none;
+}
+
+.item:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.onSurface .item:hover {
+  background: var(--color-surface);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-block-end: var(--space-5);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-tint);
+  color: var(--color-accent-bright);
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    color var(--duration-hover) var(--ease-out),
+    transform 360ms var(--ease-emphasized);
+}
+
+/* Icon micro-motion: the tile lifts a touch further than the card. */
+.item:hover .icon {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.onSurface .icon {
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.solid .icon,
+.onSurface.solid .icon {
+  background: var(--color-accent-bright);
+  color: var(--color-on-dark);
+  box-shadow: 0 6px 14px rgba(30, 111, 217, 0.22);
+}
+
+.title {
+  margin-block-end: var(--space-2);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Whole item is the click target; the link text carries the name. */
+.titleLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.titleLink:focus-visible {
+  box-shadow: none;
+}
+
+.item:has(.titleLink:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+.linked:hover .titleLink {
+  color: var(--color-navy);
+}
+
+.badge {
+  align-self: flex-start;
+  margin-block-end: var(--space-3);
+}
+
+.description {
+  font-size: var(--type-body);
+  line-height: 22px;
+  color: var(--color-text-secondary);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-block-start: auto;
+  padding-block-start: var(--space-5);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.moreIcon {
+  transition: transform var(--duration-hover) var(--ease-out);
+}
+
+.linked:hover .moreIcon {
+  translate: 3px 0;
+}
+
+[dir="rtl"] .linked:hover .moreIcon {
+  translate: -3px 0;
+}
+
+@media (max-width: 1023px) {
+  .grid,
+  .cols4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .grid,
+  .cols2,
+  .cols4 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .item {
+    padding: var(--space-5);
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin-block-end: var(--space-4);
+  }
+
+  .description {
+    font-size: 13.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item:hover,
+  .item:hover .icon {
+    transform: none;
+  }
+
+  .linked:hover .moreIcon {
+    translate: none;
+  }
+}

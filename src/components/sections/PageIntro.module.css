@@ -1,0 +1,123 @@
+.intro {
+  position: relative;
+  overflow: hidden;
+  padding-block: 88px var(--space-16);
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-band) 100%);
+  border-block-end: 1px solid var(--color-border);
+  text-align: center;
+  isolation: isolate;
+}
+
+/* Same angled planes as the home hero, kept faint behind inner-page intros. */
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(118deg, transparent 0 70%, rgba(30, 111, 217, 0.06) 70% 76%, transparent 76%),
+    linear-gradient(118deg, transparent 0 80%, rgba(10, 52, 112, 0.05) 80% 84%, transparent 84%);
+}
+
+[dir="rtl"] .intro::before {
+  transform: scaleX(-1);
+}
+
+.start {
+  text-align: start;
+}
+
+/* Load sequence (same system as the home hero, lighter): eyebrow, title, copy, actions, meta. */
+.eyebrow,
+.title,
+.sub,
+.actions > *,
+.meta {
+  animation: motion-rise var(--duration-enter) var(--ease-emphasized) both;
+}
+
+.eyebrow {
+  margin-block-end: var(--space-4);
+}
+
+.title {
+  max-width: 780px;
+  margin-inline: auto;
+  font-size: var(--type-hero);
+  line-height: var(--type-hero-lh);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  text-wrap: balance;
+  animation-delay: 70ms;
+}
+
+:lang(ar) .title {
+  letter-spacing: 0;
+}
+
+.start .title,
+.start .sub {
+  margin-inline: 0;
+}
+
+.sub {
+  max-width: 620px;
+  margin: var(--space-5) auto 0;
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+  animation-delay: 140ms;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-start: var(--space-8);
+}
+
+.actions > :nth-child(1) {
+  animation-delay: 210ms;
+}
+
+.actions > :nth-child(2) {
+  animation-delay: 270ms;
+}
+
+.start .actions {
+  justify-content: flex-start;
+}
+
+.meta {
+  margin-block-start: var(--space-4);
+  font-size: var(--type-meta);
+  color: var(--color-text-secondary);
+  animation-delay: 320ms;
+}
+
+@media (max-width: 767px) {
+  .intro {
+    padding-block: var(--space-12) var(--space-10);
+  }
+
+  .sub {
+    font-size: 15px;
+    line-height: 24px;
+    margin-block-start: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .sub,
+  .actions > *,
+  .meta {
+    animation: none;
+  }
+}

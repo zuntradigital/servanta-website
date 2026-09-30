@@ -1,0 +1,80 @@
+/* Slim full-width strip (spec §9 Banner / Announcement; slim section rhythm). */
+.banner {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.success {
+  background: var(--color-success-tint);
+}
+
+.warning {
+  background: var(--color-warning-tint);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  min-height: 44px;
+  margin-inline: auto;
+  padding: var(--space-2) var(--gutter);
+}
+
+.icon {
+  flex: none;
+  color: var(--color-accent-bright);
+}
+
+.success .icon {
+  color: var(--color-success);
+}
+
+.warning .icon {
+  color: var(--color-warning);
+}
+
+.message {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--type-body);
+  line-height: 22px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dismiss {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-inline-end: calc(-1 * var(--space-3));
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-accent-bright);
+  cursor: pointer;
+}
+
+.dismiss:hover {
+  color: var(--color-navy);
+  background: rgba(0, 31, 59, 0.06);
+}

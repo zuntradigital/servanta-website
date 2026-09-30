@@ -1,0 +1,44 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-accent);
+  font-size: var(--type-body);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  min-height: 40px;
+  transition: color var(--duration-fast) ease;
+}
+
+.link:hover {
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+.link:active {
+  color: var(--color-navy);
+}
+
+.icon {
+  transition: transform var(--duration-fast) ease;
+}
+
+.link:hover .icon {
+  transform: translateX(2px);
+}
+
+[dir="rtl"] .link:hover .icon {
+  transform: scaleX(-1) translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover .icon {
+    transform: none;
+  }
+
+  [dir="rtl"] .link:hover .icon {
+    transform: scaleX(-1);
+  }
+}

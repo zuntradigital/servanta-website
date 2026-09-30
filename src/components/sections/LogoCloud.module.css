@@ -1,0 +1,74 @@
+.label {
+  margin-block-end: var(--space-8);
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  opacity: 0.65;
+  filter: grayscale(1);
+  transition:
+    opacity var(--duration-hover) ease,
+    filter var(--duration-hover) ease;
+}
+
+.logo:hover,
+.logo:focus-within {
+  opacity: 1;
+  filter: none;
+}
+
+.logo img {
+  max-height: 36px;
+  width: auto;
+}
+
+/* Placeholder slot: neutral shape, never a fabricated brand name. */
+.slot {
+  flex: 0 1 148px;
+  min-width: 72px;
+  height: 28px;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(90deg, rgba(10, 52, 112, 0.08), rgba(10, 52, 112, 0.05));
+}
+
+.note {
+  margin-block-start: var(--space-6);
+  text-align: center;
+  font-size: var(--type-caption);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* Mobile: 2-row wrapped grid (3 + 3), no horizontal scroll (spec §5.3). */
+@media (max-width: 767px) {
+  .label {
+    margin-block-end: var(--space-6);
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .slot {
+    width: 100%;
+    height: 24px;
+  }
+}
+
+.band {
+  border-block: 1px solid var(--color-border);
+}

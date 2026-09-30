@@ -1,0 +1,105 @@
+.root {
+  position: relative;
+}
+
+.chevron {
+  transition: transform 320ms var(--ease-emphasized);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  inset-inline-start: calc(-1 * var(--space-3));
+  min-width: 180px;
+  padding: var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-menu);
+  z-index: 60;
+  transform-origin: top center;
+  animation: menu-in 240ms var(--ease-emphasized) both;
+}
+
+.menu > .item {
+  animation: motion-rise 320ms var(--ease-emphasized) both;
+}
+
+.menu > .item:nth-child(1) { animation-delay: 40ms; }
+.menu > .item:nth-child(2) { animation-delay: 80ms; }
+.menu > .item:nth-child(3) { animation-delay: 120ms; }
+.menu > .item:nth-child(4) { animation-delay: 160ms; }
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hover bridge so the pointer can travel from trigger to menu. */
+.menu::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 100%;
+  height: var(--space-3);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    padding-inline-start 220ms var(--ease-emphasized);
+}
+
+/* A small inset on hover signals the item under the pointer. */
+.item:hover {
+  padding-inline-start: calc(var(--space-3) + 4px);
+}
+
+.item:hover,
+.item:focus-visible {
+  background: var(--color-bg);
+  color: var(--color-navy);
+}
+
+.current {
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+
+  .menu,
+  .menu > .item {
+    animation: none;
+  }
+
+  .item:hover {
+    padding-inline-start: var(--space-3);
+  }
+}

@@ -1,0 +1,42 @@
+.frame {
+  margin: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 480ms var(--ease-emphasized),
+    box-shadow 480ms var(--ease-emphasized);
+}
+
+/* Product visuals lift gently under the pointer (fine pointers only). */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .frame:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float);
+  }
+}
+
+.onAlt {
+  background: var(--color-surface);
+}
+
+.caption {
+  margin-block-end: var(--space-3);
+  text-align: center;
+  font-size: var(--type-caption);
+  line-height: 16px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .frame {
+    padding: var(--space-3);
+  }
+
+  .caption {
+    font-size: 10px;
+    margin-block-end: var(--space-2);
+  }
+}

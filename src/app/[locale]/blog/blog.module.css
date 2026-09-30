@@ -1,0 +1,22 @@
+.featured {
+  margin-block-end: var(--space-16);
+}
+
+.latest {
+  margin-block-end: var(--space-6);
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+.none {
+  padding: var(--space-16) 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .featured {
+    margin-block-end: var(--space-12);
+  }
+}

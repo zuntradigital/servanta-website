@@ -1,0 +1,250 @@
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.plans4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.plansFew {
+  grid-template-columns: repeat(auto-fit, minmax(0, 380px));
+  justify-content: center;
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--duration-hover) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out),
+    transform var(--duration-hover) var(--ease-out);
+}
+
+.plan:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+/* Recommended: 2px navy border is the only differentiation (spec §7). */
+.recommended,
+.recommended:hover {
+  border: 2px solid var(--color-navy);
+  padding: calc(var(--space-8) - 1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan:hover {
+    transform: none;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .badge {
+  transform: translateX(50%);
+}
+
+.planName {
+  margin-block-end: var(--space-1);
+  font-size: var(--type-title);
+  line-height: 26px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.planAudience {
+  font-size: var(--type-meta);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+}
+
+.planDesc {
+  min-height: 40px;
+  margin-block: var(--space-2) var(--space-6);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-text-secondary);
+}
+
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.priceNote {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-text-secondary);
+}
+
+.includes {
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 34px;
+  line-height: 42px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-ink);
+}
+
+.price small {
+  font-size: var(--type-body);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.priceText {
+  font-size: var(--type-title);
+  line-height: 26px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.features {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-block: var(--space-6);
+}
+
+.featuresAfterIncludes {
+  margin-block-start: var(--space-2);
+}
+
+.features li {
+  display: flex;
+  gap: var(--space-2);
+  padding-block: 6px;
+  font-size: var(--type-body);
+  line-height: 20px;
+  color: var(--color-text-secondary);
+}
+
+.check {
+  flex: none;
+  margin-block-start: 2px;
+  color: var(--color-accent-bright);
+}
+
+/* "At launch": part of the plan once the platform module is released (AC-PRICE-013/014). */
+.launchTag {
+  display: inline-block;
+  margin-inline-start: var(--space-2);
+  padding: 0 6px;
+  border-radius: var(--radius-xs);
+  background: var(--color-accent-tint);
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--color-accent);
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+
+.limits {
+  margin-block-end: var(--space-6);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.limitsTitle {
+  margin-block-end: var(--space-2);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.limitsList {
+  display: grid;
+  gap: 2px;
+}
+
+.limitRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.limitRow dt {
+  color: var(--color-text-secondary);
+}
+
+.limitRow dd {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.skeletonGap {
+  margin-block-start: var(--space-3);
+}
+
+.skeletonGapLg {
+  margin-block-start: var(--space-6);
+}
+
+@media (max-width: 1023px) {
+  .plans,
+  .plans4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-8);
+  }
+}
+
+/* Mobile: single column, recommended plan first (spec §7). */
+@media (max-width: 767px) {
+  .plans,
+  .plans4,
+  .plansFew {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .recommended {
+    order: -1;
+  }
+
+  .plan {
+    padding: var(--space-6);
+  }
+
+  .recommended,
+  .recommended:hover {
+    padding: calc(var(--space-6) - 1px);
+  }
+
+  .planDesc {
+    min-height: 0;
+  }
+}

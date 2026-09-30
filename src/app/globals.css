@@ -1,0 +1,353 @@
+/*
+ * SERVANTA design tokens.
+ * Values come from the design mockups (website/design/mockups/*.html) and
+ * 01-VISUAL-DESIGN-MASTER-SPECIFICATION.md. Components reference these
+ * variables only; no raw colour or spacing values in component styles.
+ */
+:root {
+  /* Color
+   * Design language from moka's design reference, anchored to the official
+   * logo (src/assets/servanta-logo.gif, navy / blue):
+   * cool near-white blue backgrounds, deep navy ink for headings, navy
+   * primary buttons, one brighter brand blue used sparingly (eyebrows,
+   * highlighted words, icons, links), and deep navy closing band + footer.
+   * Every text pairing meets WCAG 2.1 AA (4.5:1) on the surface it sits on.
+   */
+  --color-ink: #0b2551; /* headings and primary text (15:1 on white) */
+  --color-navy: #0a3470; /* primary buttons (12:1) */
+  --color-navy-dark: #062654; /* primary hover */
+  --color-deep: #002954; /* closing CTA band */
+  --color-deep-end: #06336a; /* CTA band gradient end */
+  --color-deepest: #021830; /* footer */
+  --color-slate: #34506f;
+  --color-accent: #1a63c7; /* brand blue for text: eyebrows, links, highlights (5.2:1 on --color-bg-band) */
+  --color-accent-hover: #0a3470;
+  --color-accent-bright: #1e6fd9; /* icons and solid icon tiles (non-text, 4.4:1) */
+  --color-accent-tint: #e8f1fc; /* pale icon tiles */
+  --color-accent-on-dark: #7fb2f0; /* eyebrows on navy (6.6:1 on --color-deep) */
+  --color-bg: #f5f9fd; /* ice background */
+  --color-bg-band: #eef5fc; /* trust band, alternating bands */
+  --color-surface: #ffffff;
+  --color-border: #e3ebf5;
+  --color-border-strong: #c9d7e8;
+  --color-text: #0b2551;
+  --color-text-secondary: #56687f; /* 5.2:1 on --color-bg-band */
+  --color-text-placeholder: #8a9ab0;
+  --color-success: #16805c;
+  --color-success-tint: #e3f5ee;
+  --color-warning: #c58a18;
+  --color-warning-tint: #fdf2e0;
+  --color-danger: #c44747;
+  --color-danger-tint: #fbeaea;
+  --color-on-dark: #ffffff;
+  --color-on-dark-muted: #a3b5cc;
+  --color-on-dark-soft: #cfdbea;
+  --color-on-dark-rule: rgba(255, 255, 255, 0.1);
+
+  /* Radius: squared-off, never pill-shaped (reference) */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 6px;
+
+  /* Spacing (4px scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(11, 37, 81, 0.05);
+  --shadow-card: 0 1px 2px rgba(11, 37, 81, 0.04), 0 8px 24px rgba(11, 37, 81, 0.05);
+  --shadow-card-hover: 0 2px 4px rgba(11, 37, 81, 0.05), 0 16px 36px rgba(11, 37, 81, 0.1);
+  --shadow-float: 0 24px 60px rgba(11, 37, 81, 0.14), 0 4px 12px rgba(11, 37, 81, 0.06);
+  --shadow-menu: 0 8px 24px rgba(11, 37, 81, 0.1);
+  --focus-ring: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-accent);
+  --focus-ring-field: 0 0 0 3px rgba(26, 99, 199, 0.18);
+
+  /* Layout */
+  --container: 1200px;
+  --container-reading: 680px;
+  --gutter: var(--space-6);
+  --header-height: 72px;
+
+  /* Typography */
+  --font-latin: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-arabic: var(--font-plex-arabic), "Noto Sans Arabic", var(--font-latin);
+  --font-body: var(--font-latin);
+
+  --type-hero: 52px;
+  --type-hero-lh: 60px;
+  --type-section: 34px;
+  --type-section-lh: 42px;
+  --type-title: 18px;
+  --type-body-lg: 16px;
+  --type-body: 14px;
+  --type-feature-title: 15px;
+  --type-meta: 12.5px;
+  --type-caption: 11px;
+  --type-stat: 34px;
+  --tracking-caps: 0.04em;
+  --tracking-eyebrow: 0.14em;
+  --tracking-heading: -0.02em;
+
+  /* Section rhythm */
+  --section-pad: 96px;
+  --section-pad-dense: 72px;
+  --section-pad-slim: var(--space-8);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-drawer: 250ms;
+  --duration-hover: 220ms;
+  /* Motion system: one emphasized curve for entrances, one timing scale. */
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-press: cubic-bezier(0.3, 0, 0.2, 1);
+  --duration-enter: 640ms;
+  --duration-reveal: 760ms;
+  --stagger: 70ms;
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --type-hero: 42px;
+    --type-hero-lh: 50px;
+    --type-section: 30px;
+    --type-section-lh: 38px;
+    --section-pad: 80px;
+    --section-pad-dense: 64px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: var(--space-4);
+    --header-height: 64px;
+    --type-hero: 32px;
+    --type-hero-lh: 40px;
+    --type-section: 26px;
+    --type-section-lh: 34px;
+    --type-stat: 28px;
+    --section-pad: 64px;
+    --section-pad-dense: 48px;
+    --section-pad-slim: var(--space-8);
+  }
+}
+
+/* Arabic: IBM Plex Sans Arabic and taller line-heights (spec §14). */
+:root:lang(ar) {
+  --font-body: var(--font-arabic);
+  --type-hero-lh: 68px;
+  --type-section-lh: 50px;
+  --tracking-caps: 0;
+  --tracking-eyebrow: 0;
+  --tracking-heading: 0;
+}
+
+@media (max-width: 1023px) {
+  :root:lang(ar) {
+    --type-hero-lh: 58px;
+    --type-section-lh: 46px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root:lang(ar) {
+    --type-hero-lh: 48px;
+    --type-section-lh: 40px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-height) + var(--space-4));
+  /* In-page anchors glide; route changes stay instant (data-scroll-behavior on <html>).
+     Reduced motion resets this to auto below. */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-body-lg);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-surface);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:where(ul[role="list"], ol[role="list"]) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-xs);
+}
+
+::selection {
+  background: rgba(26, 99, 199, 0.18);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  top: -100px;
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-navy);
+  color: var(--color-on-dark);
+  border-radius: var(--radius-sm);
+  font-size: var(--type-body);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* Numbers stay LTR inside RTL text (spec §14). */
+.ltr-number {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Directional icons (chevrons/arrows) mirror in RTL; glyph icons do not. */
+[dir="rtl"] .flip-rtl {
+  transform: scaleX(-1);
+}
+
+/*
+ * Scroll reveal (spec §16): elements marked [data-reveal] ("", "fade" or
+ * "scale") with an optional --reveal-index stagger. The animation runs through
+ * the Web Animations API in components/ui/Reveal.tsx, which never touches DOM
+ * attributes, so server-rendered and hydrated markup always match. Timing
+ * comes from the motion tokens above (--duration-reveal, --stagger, --ease-emphasized).
+ */
+
+/* Shared entrance for above-the-fold content on page load (hero, page intros, header). */
+@keyframes motion-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes motion-drop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes motion-settle {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Hover and press motion becomes instant (colour changes remain, no movement easing). */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+main:focus {
+  outline: none;
+  box-shadow: none;
+}

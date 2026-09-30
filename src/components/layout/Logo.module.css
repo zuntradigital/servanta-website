@@ -1,0 +1,87 @@
+/*
+ * Logo sizing keeps the artwork's own aspect ratio (1117 × 240); only the
+ * height is set. Motion is presentation only: a one-time fade + rise on
+ * page load and a 1px lift on hover. The artwork is never scaled unevenly,
+ * rotated or recoloured.
+ */
+.logo {
+  display: inline-flex;
+  flex-shrink: 0; /* never squeezed by a crowded header, so the aspect ratio holds */
+  align-items: center;
+  min-height: 40px;
+  text-decoration: none;
+  direction: ltr;
+  unicode-bidi: isolate;
+  border-radius: var(--radius-xs);
+  animation: logo-enter 520ms var(--ease-out) both;
+}
+
+.image {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+  height: 34px;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) ease;
+}
+
+a.logo:hover .image {
+  transform: translateY(-1px);
+  opacity: 0.88;
+}
+
+a.logo:active .image {
+  transform: none;
+}
+
+/* Footer: the artwork sits directly on the navy background (no plate), at a slightly smaller size. */
+.onDark .image {
+  height: 30px;
+}
+
+@keyframes logo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * 768–820px: the full desktop nav leaves too little room for the logo at its
+ * normal 34px height, so it scales down smoothly (aspect ratio kept) instead
+ * of being squeezed. 0.2149 = 240 / 1117, the artwork's height / width.
+ */
+@media (min-width: 768px) and (max-width: 820px) {
+  .image {
+    height: min(34px, calc((100vw - 666px) * 0.2149));
+  }
+}
+
+@media (max-width: 767px) {
+  .image {
+    height: 28px;
+  }
+
+  .onDark .image {
+    height: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo {
+    animation: none;
+  }
+
+  .image {
+    transition: none;
+  }
+
+  a.logo:hover .image {
+    transform: none;
+  }
+}

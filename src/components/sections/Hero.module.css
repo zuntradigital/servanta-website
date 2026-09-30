@@ -1,0 +1,460 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-20) var(--space-10);
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+  isolation: isolate;
+}
+
+/*
+ * Architectural backdrop (reference): a few soft, angled blue planes behind
+ * the product visual, echoing the logo mark's geometry. Decorative only.
+ */
+.backdrop {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: 58%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(118deg, transparent 0 46%, rgba(30, 111, 217, 0.07) 46% 54%, transparent 54%),
+    linear-gradient(118deg, transparent 0 62%, rgba(10, 52, 112, 0.06) 62% 67%, transparent 67%),
+    linear-gradient(118deg, transparent 0 74%, rgba(30, 111, 217, 0.05) 74% 86%, transparent 86%),
+    radial-gradient(ellipse 70% 60% at 70% 45%, rgba(30, 111, 217, 0.1), transparent 70%);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+}
+
+[dir="rtl"] .backdrop {
+  transform: scaleX(-1);
+}
+
+/*
+ * Background photo (config/hero.ts). The supplied image is already composed
+ * for a left-aligned headline: its left side is near-white (#F3F8FB, matching
+ * --color-bg) and its subject sits on the right. It is shown at its natural
+ * aspect ratio (object-fit: contain, never stretched), anchored to the end
+ * side of the text area, and its outer edges are feathered with a mask so it
+ * blends into the hero background. No colour overlay is applied.
+ */
+.stage {
+  position: relative;
+}
+
+/*
+ * Wide screens (1200px+, left-to-right): the photo fills the hero from the
+ * top edge to the facts row, anchored to the viewport's end edge and sized
+ * by height, so it keeps its aspect ratio at every width and is never
+ * stretched. Extra width on very large screens is taken up by the photo's
+ * own plain left side (feathered into the hero background), not by empty
+ * space on the right. The stage has a fluid minimum height so the photo
+ * scales with the viewport instead of shrinking to the text height.
+ */
+.withPhoto .grid {
+  min-height: clamp(440px, 34vw, 620px);
+}
+
+.photo {
+  position: absolute;
+  top: calc(-1 * var(--space-20));
+  bottom: calc(-1 * var(--space-6));
+  inset-inline-end: 0;
+  aspect-ratio: 1776 / 886;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 24%),
+    linear-gradient(180deg, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 24%),
+    linear-gradient(180deg, #000 84%, transparent 100%);
+  mask-composite: intersect;
+  animation: photo-in 900ms var(--ease-out) both;
+}
+
+/* Parallax layer: 14px taller than the photo box so the drift never shows an edge (the mask clips it). */
+.photoLayer {
+  position: absolute;
+  inset: 0 0 -14px;
+}
+
+.photo img {
+  object-fit: cover;
+  object-position: right bottom;
+}
+
+/* Soft wash behind the text column only; the text itself is unchanged. */
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--color-bg) 0%, rgba(245, 249, 253, 0.7) 18%, rgba(245, 249, 253, 0) 34%);
+}
+
+/*
+ * Narrower screens and Arabic: the photo becomes a full-bleed band in the
+ * visual column (or under the text when stacked), cropped to the laptop and
+ * phone, with feathered edges instead of a card frame.
+ */
+.photoInline {
+  display: none;
+  position: relative;
+  aspect-ratio: 5 / 4;
+  margin-inline-end: calc(-1 * var(--gutter));
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 18%),
+    linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 18%),
+    linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* The band settles in with the rest of the hero; the crop transform stays on the img. */
+.photoInline {
+  animation: motion-settle 1000ms 260ms var(--ease-emphasized) both;
+}
+
+/*
+ * Desktop photo drifts up a few pixels as the page scrolls past the hero
+ * (scroll-driven, compositor-only via the `translate` property so it never
+ * fights the entrance animation). Browsers without scroll timelines keep it still.
+ */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .photo {
+      animation:
+        photo-in 900ms var(--ease-out) both,
+        photo-drift linear both;
+      animation-timeline: auto, scroll(root);
+      animation-range: normal, 0 640px;
+    }
+  }
+}
+
+@keyframes photo-drift {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -36px;
+  }
+}
+
+.photoInline img {
+  object-fit: cover;
+  /* Crop to the laptop and phone (they sit in the right 60% of the photo). */
+  object-position: 88% 60%;
+}
+
+/* The photo is not mirrored in Arabic (it carries the logo); it bleeds to the left edge instead. */
+[dir="rtl"] .photo {
+  display: none;
+}
+
+[dir="rtl"] .photoInline {
+  display: block;
+  /* Bleed to the viewport's left edge, where the photo's plain side sits. */
+  margin-inline-end: calc(-1 * max(var(--gutter), (100vw - var(--container)) / 2));
+  -webkit-mask-image:
+    linear-gradient(270deg, transparent 0%, #000 18%),
+    linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
+  mask-image:
+    linear-gradient(270deg, transparent 0%, #000 18%),
+    linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
+}
+
+@media (max-width: 1199px) {
+  .photo {
+    display: none;
+  }
+
+  .photoInline {
+    display: block;
+  }
+}
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-16);
+}
+
+/*
+ * Page-load sequence: eyebrow, headline, supporting copy, then each CTA,
+ * with the visual settling in alongside and the facts row last. Short
+ * enough that the hero is fully in place in about a second.
+ */
+.eyebrow,
+.title,
+.sub,
+.actions > * {
+  animation: motion-rise var(--duration-enter) var(--ease-emphasized) both;
+}
+
+.eyebrow {
+  margin-block-end: var(--space-4);
+  animation-delay: 60ms;
+}
+
+.title {
+  animation-delay: 130ms;
+}
+
+.sub {
+  animation-delay: 210ms;
+}
+
+.actions > :nth-child(1) {
+  animation-delay: 290ms;
+}
+
+.actions > :nth-child(2) {
+  animation-delay: 360ms;
+}
+
+.title {
+  max-width: 600px;
+  font-size: var(--type-hero);
+  line-height: var(--type-hero-lh);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  text-wrap: pretty;
+}
+
+:lang(ar) .title {
+  letter-spacing: 0;
+}
+
+.highlight {
+  color: var(--color-accent);
+}
+
+.sub {
+  max-width: 500px;
+  margin-block: var(--space-5) var(--space-10);
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.visual {
+  position: relative;
+}
+
+.visualInner {
+  animation: motion-settle 1000ms 240ms var(--ease-emphasized) both;
+}
+
+.visualInner > * {
+  box-shadow: var(--shadow-float);
+}
+
+/* Platform facts row (reference: icon row under the hero). */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin-block-start: var(--space-12);
+  padding-block-start: var(--space-8);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.fact {
+  animation: motion-rise var(--duration-enter) var(--ease-emphasized) both;
+}
+
+.fact:nth-child(1) {
+  animation-delay: 460ms;
+}
+
+.fact:nth-child(2) {
+  animation-delay: 520ms;
+}
+
+.fact:nth-child(3) {
+  animation-delay: 580ms;
+}
+
+.fact:nth-child(4) {
+  animation-delay: 640ms;
+}
+
+.fact {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.factIcon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-accent-bright);
+  box-shadow: inset 0 0 0 1px var(--color-border), var(--shadow-sm);
+  transition:
+    transform var(--duration-hover) var(--ease-emphasized),
+    box-shadow var(--duration-hover) var(--ease-out),
+    color var(--duration-hover) var(--ease-out);
+}
+
+.fact:hover .factIcon {
+  transform: translateY(-3px);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-border-strong), var(--shadow-card);
+}
+
+.factTitle {
+  display: block;
+  font-size: var(--type-body);
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.factText {
+  display: block;
+  margin-block-start: 2px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--color-text-secondary);
+}
+
+/* Tablet: single column, text first, visual second (spec §5.2). */
+@media (max-width: 1023px) {
+  .hero {
+    padding-block: var(--space-16) var(--space-10);
+  }
+
+  .backdrop {
+    width: 100%;
+    opacity: 0.7;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+
+  .title,
+  .sub {
+    max-width: 640px;
+  }
+
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-6);
+    margin-block-start: var(--space-12);
+  }
+
+  /* Stacked: a full-width band under the buttons, sized by width. */
+  .withPhoto .grid {
+    min-height: 0;
+    gap: var(--space-6);
+  }
+
+  /* Zoom slightly into the devices so the band is not mostly sky. */
+  .photoInline img {
+    object-position: 100% 60%;
+    transform: scale(1.18);
+    transform-origin: 82% 72%;
+  }
+
+  .photoInline,
+  [dir="rtl"] .photoInline {
+    aspect-ratio: 16 / 9;
+    margin-inline: calc(-1 * var(--gutter));
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: var(--space-10);
+  }
+
+  .grid {
+    gap: var(--space-10);
+  }
+
+  .eyebrow {
+    margin-block-end: var(--space-3);
+  }
+
+  .sub {
+    font-size: 15px;
+    line-height: 24px;
+    margin-block: var(--space-4) var(--space-8);
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    margin-block-start: var(--space-10);
+    padding-block-start: var(--space-6);
+  }
+
+  .visualInner > * {
+    box-shadow: var(--shadow-card);
+  }
+
+  .photoInline,
+  [dir="rtl"] .photoInline {
+    aspect-ratio: 4 / 3;
+  }
+
+  .photoInline img {
+    object-position: 96% 60%;
+    transform: scale(1.06);
+    transform-origin: 90% 75%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .sub,
+  .actions > *,
+  .visualInner,
+  .fact,
+  .photo,
+  .photoInline {
+    animation: none;
+  }
+
+  .fact:hover .factIcon {
+    transform: none;
+  }
+}

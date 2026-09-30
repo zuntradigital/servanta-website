@@ -1,0 +1,25 @@
+.section {
+  padding-block: var(--section-pad);
+  background: var(--color-surface);
+}
+
+.dense {
+  padding-block: var(--section-pad-dense);
+}
+
+.slim {
+  padding-block: var(--section-pad-slim);
+}
+
+.alt {
+  background: var(--color-bg);
+}
+
+.band {
+  background: var(--color-bg-band);
+}
+
+.navy {
+  background: var(--color-deep);
+  color: var(--color-on-dark);
+}

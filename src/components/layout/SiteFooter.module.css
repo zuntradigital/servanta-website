@@ -1,0 +1,240 @@
+/* Blue footer from the existing palette (--color-navy, the primary-button blue); white text keeps 12:1. */
+.footer {
+  background: var(--color-navy);
+  color: var(--color-on-dark-soft);
+  padding-block: var(--space-12) var(--space-6);
+}
+
+.inner {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: var(--space-8);
+}
+
+/*
+ * Footer logo: the brand's transparent RGBA master (servanta-logo-share.png,
+ * 1117 × 240, the same artwork as the header). It is a dark mark on a fully
+ * transparent background with real anti-aliasing, so on the dark footer it is
+ * shown pure white with `brightness(0) invert(1)`: every opaque pixel becomes
+ * white while the transparent negative space (including the icon's facet lines)
+ * stays transparent — a clean white logo with no dark box, fill or gaps. The
+ * artwork, shapes and proportions are untouched; only the display colour
+ * changes. The file has a little transparent padding around the mark
+ * (43 / 4 / 39 / 7 px on the left / top / right / bottom); negative margins take
+ * that up so the visible mark lines up with the tagline and columns.
+ */
+.logo {
+  --logo-h: 50px;
+  position: relative;
+  display: inline-flex;
+  direction: ltr;
+  margin-block: calc(var(--logo-h) * -4 / 240) calc(var(--logo-h) * -7 / 240);
+  margin-inline-start: calc(var(--logo-h) * -43 / 240);
+  border-radius: var(--radius-xs);
+  isolation: isolate;
+}
+
+[dir="rtl"] .logo {
+  margin-inline-start: calc(var(--logo-h) * -39 / 240);
+}
+
+.logoImage {
+  display: block;
+  width: auto;
+  height: var(--logo-h);
+  /* Recolour only: the mark becomes crisp white; transparent areas stay transparent. */
+  filter: brightness(0) invert(1);
+  transition: transform var(--duration-enter) var(--ease-emphasized);
+}
+
+/* Hover / focus: a soft light-blue glint sweeps across the mark, clipped to its own shape. */
+.logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(147, 197, 253, 0.95) 50%, transparent 62%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 130% 0;
+  -webkit-mask: var(--logo-src) center / contain no-repeat;
+  mask: var(--logo-src) center / contain no-repeat;
+  opacity: 0;
+  transition:
+    background-position 0s linear 0.4s,
+    opacity 0.4s ease;
+}
+
+.logo:hover .logoImage,
+.logo:focus-visible .logoImage {
+  transform: translateY(-2px);
+}
+
+.logo:hover::after,
+.logo:focus-visible::after {
+  opacity: 1;
+  background-position: -30% 0;
+  transition:
+    background-position 1.1s var(--ease-emphasized),
+    opacity 0.2s ease;
+}
+
+.logo:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-navy), 0 0 0 4px var(--color-on-dark);
+}
+
+@media (max-width: 767px) {
+  .logo {
+    --logo-h: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo::after {
+    display: none;
+  }
+
+  .logo:hover .logoImage,
+  .logo:focus-visible .logoImage {
+    transform: none;
+  }
+}
+
+.tagline {
+  margin-block-start: var(--space-5);
+  max-width: 280px;
+  font-size: var(--type-body);
+  line-height: 22px;
+  color: var(--color-on-dark-muted);
+}
+
+.heading {
+  margin-block-end: var(--space-4);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-on-dark);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.link {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: start;
+  font-size: var(--type-body);
+  line-height: 22px;
+  color: var(--color-on-dark-soft);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition:
+    color var(--duration-fast) ease,
+    text-decoration-color var(--duration-hover) var(--ease-out),
+    translate var(--duration-hover) var(--ease-out);
+}
+
+.link:hover {
+  translate: 3px 0;
+  color: var(--color-on-dark);
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+[dir="rtl"] .link:hover {
+  translate: -3px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover,
+  [dir="rtl"] .link:hover {
+    translate: none;
+  }
+}
+
+.link:focus-visible,
+.credit:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-navy), 0 0 0 4px var(--color-on-dark);
+}
+
+/* Centered copyright and credits. */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  margin-block-start: var(--space-10);
+  padding-block-start: var(--space-5);
+  border-top: 1px solid var(--color-on-dark-rule);
+  font-size: var(--type-meta);
+  color: var(--color-on-dark-muted);
+}
+
+.credit {
+  color: var(--color-on-dark-soft);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  text-underline-offset: 3px;
+  transition:
+    color var(--duration-fast) ease,
+    text-decoration-color var(--duration-hover) ease;
+}
+
+.credit:hover {
+  color: var(--color-on-dark);
+  text-decoration-color: currentColor;
+}
+
+.social {
+  display: flex;
+  gap: var(--space-4);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Columns simply stack on mobile, no accordions (spec §10). */
+@media (max-width: 767px) {
+  .footer {
+    padding-block: var(--space-10) var(--space-6);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* 44px touch targets on mobile (spec §15). */
+  .links {
+    gap: 0;
+  }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .bottom {
+    gap: var(--space-2);
+  }
+}

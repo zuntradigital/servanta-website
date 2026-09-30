@@ -1,0 +1,80 @@
+.list {
+  border-top: 1px solid var(--color-border);
+}
+
+.item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.heading {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-5) 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: start;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: color var(--duration-hover) ease;
+}
+
+.trigger:hover {
+  color: var(--color-accent);
+}
+
+.trigger:focus-visible {
+  border-radius: var(--radius-xs);
+}
+
+.icon {
+  flex: none;
+  color: var(--color-accent-bright);
+  transition: transform var(--duration-base) ease;
+}
+
+.trigger[aria-expanded="true"] .icon {
+  transform: rotate(45deg);
+}
+
+/* Height auto-animate via grid rows (spec §16: 200ms). */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) ease;
+}
+
+.open {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+}
+
+.answer {
+  max-width: 640px;
+  padding-block-end: var(--space-5);
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--color-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .icon {
+    transition: none;
+  }
+}

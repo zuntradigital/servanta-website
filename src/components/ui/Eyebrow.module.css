@@ -1,0 +1,13 @@
+.eyebrow {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* On the navy CTA band. */
+.onDark {
+  color: var(--color-accent-on-dark);
+}
